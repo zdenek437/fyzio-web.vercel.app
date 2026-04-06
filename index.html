@@ -18,6 +18,10 @@
       --shadow-sm:0 4px 12px rgba(15,23,42,.05);
       --shadow-lg:0 22px 50px rgba(15,23,42,.10);
       --max:1200px;
+      --danger:#b91c1c;
+      --danger-bg:#fef2f2;
+      --success:#065f46;
+      --success-bg:#ecfdf5;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
@@ -33,9 +37,11 @@
     .card{background:var(--white);border:1px solid var(--line);border-radius:32px;box-shadow:var(--shadow-sm)}
     .btn{
       display:inline-flex;align-items:center;justify-content:center;padding:14px 22px;border-radius:18px;
-      font-weight:700;transition:transform .2s ease, background .2s ease;border:1px solid transparent;cursor:pointer;
+      font-weight:700;transition:transform .2s ease, background .2s ease, border-color .2s ease, opacity .2s ease;
+      border:1px solid transparent;cursor:pointer;
     }
     .btn:hover{transform:translateY(-1px)}
+    .btn:disabled{opacity:.7;cursor:not-allowed;transform:none}
     .btn-primary{background:var(--primary);color:#fff}
     .btn-primary:hover{background:var(--primary-dark)}
     .btn-secondary{background:#fff;border-color:#cbd5e1;color:#334155}
@@ -98,11 +104,29 @@
     label{display:block;font-size:.95rem;font-weight:700;color:#334155}
     input, textarea{
       width:100%;margin-top:8px;padding:14px 16px;border-radius:18px;border:1px solid #cbd5e1;background:#fff;
-      font:inherit;outline:none;transition:border-color .2s ease, box-shadow .2s ease;
+      font:inherit;outline:none;transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
     }
     input:focus, textarea:focus{border-color:#10b981;box-shadow:0 0 0 4px rgba(16,185,129,.10)}
+    input[aria-invalid="true"], textarea[aria-invalid="true"]{
+      border-color:var(--danger);
+      box-shadow:0 0 0 4px rgba(185,28,28,.08);
+      background:#fff;
+    }
     .field + .field{margin-top:18px}
     .helper{margin-top:12px;font-size:.92rem;color:#64748b}
+    .error-text{display:none;margin-top:8px;color:var(--danger);font-size:.92rem}
+    .error-text.visible{display:block}
+    .status-box{
+      display:none;
+      margin-top:16px;
+      padding:14px 16px;
+      border-radius:18px;
+      font-size:.95rem;
+    }
+    .status-box.visible{display:block}
+    .status-box.error{background:var(--danger-bg);border:1px solid #fecaca;color:#7f1d1d}
+    .status-box.loading{background:#eff6ff;border:1px solid #bfdbfe;color:#1d4ed8}
+    .submit-row{display:flex;flex-direction:column;gap:10px;margin-top:22px}
     .visually-hidden{
       position:absolute !important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px;
     }
@@ -224,17 +248,21 @@
 
         <div class="card">
           <form
+            id="contact-form"
             action="https://formspree.io/f/YOUR_FORM_ID"
             method="post"
             accept-charset="UTF-8"
+            novalidate
           >
             <div class="field">
               <label for="name">Jméno</label>
               <input id="name" name="name" type="text" maxlength="100" autocomplete="name" placeholder="Vaše jméno" required />
+              <div class="error-text" id="name-error">Zadejte prosím své jméno.</div>
             </div>
             <div class="field">
               <label for="email">E-mail</label>
               <input id="email" name="email" type="email" maxlength="120" autocomplete="email" inputmode="email" placeholder="vas@email.cz" required />
+              <div class="error-text" id="email-error">Zadejte prosím platný e-mail.</div>
             </div>
             <div class="field visually-hidden" aria-hidden="true">
               <label for="company">Společnost</label>
@@ -243,11 +271,19 @@
             <div class="field">
               <label for="message">Zpráva</label>
               <textarea id="message" name="message" rows="5" maxlength="2000" placeholder="Stručně popište své potíže nebo požadavek" required></textarea>
+              <div class="error-text" id="message-error">Napište prosím krátkou zprávu.</div>
             </div>
+
             <input type="hidden" name="_subject" value="Nová poptávka z webu fyzioterapie" />
             <input type="hidden" name="_language" value="cs" />
-            <button type="submit" class="btn btn-primary" style="width:100%;margin-top:22px">Odeslat poptávku</button>
-            <div class="helper">Před nasazením nahraďte <strong>YOUR_FORM_ID</strong> skutečným ID formuláře z Formspree.</div>
+            <input type="hidden" name="_next" value="/dekujeme.html" />
+
+            <div class="submit-row">
+              <button id="submit-button" type="submit" class="btn btn-primary" style="width:100%">Odeslat poptávku</button>
+              <div class="helper">Po odeslání se zobrazí potvrzovací stránka. Před nasazením nahraďte <strong>YOUR_FORM_ID</strong> skutečným ID formuláře z Formspree.</div>
+            </div>
+
+            <div id="form-status" class="status-box" role="status" aria-live="polite"></div>
           </form>
         </div>
       </div>
@@ -260,5 +296,7 @@
       <div>Kounice 377 • Individuální terapie • Objednání po domluvě</div>
     </div>
   </footer>
+
+  <script src="/script.js" defer></script>
 </body>
 </html>

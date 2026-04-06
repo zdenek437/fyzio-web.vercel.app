@@ -1,13 +1,23 @@
-# Bezpečné odesílání formuláře přes Formspree
+# Formulář s lepším UX a děkovací stránkou
 
-## Co udělat
-1. Vytvořte si formulář ve Formspree.
-2. Zkopírujte své ID formuláře.
-3. V souboru `index.html` nahraďte `YOUR_FORM_ID` ve `form action`.
-4. Nahrajte `index.html` a `vercel.json` do repa.
-5. Commitněte změnu a Vercel provede deploy.
+Obsah:
+- `index.html` – hlavní stránka s formulářem
+- `dekujeme.html` – potvrzovací stránka po odeslání
+- `script.js` – validace a lepší UX při odeslání
+- `vercel.json` – bezpečnostní hlavičky pro Vercel
 
-## Poznámky
-- Formulář používá čisté HTML `POST` odeslání.
-- Je přidané honeypot pole `company` proti jednoduchým botům.
-- Bez JavaScriptu je CSP přísnější a jednodušší.
+## Co je nové
+- přesměrování po úspěšném odeslání na `dekujeme.html`
+- validace polí před odesláním
+- zvýraznění chyb přímo u polí
+- stav „Odesílám...“ na tlačítku
+- status zpráva během odeslání
+- honeypot pole proti jednoduchým botům
+
+## Co ještě musíte upravit
+- v `index.html` nahraďte `YOUR_FORM_ID` skutečným Formspree ID
+
+## Nasazení
+1. Nahrajte všechny soubory do repa.
+2. Commitněte změnu.
+3. Vercel automaticky provede deploy.
