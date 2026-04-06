@@ -1,12 +1,20 @@
-# Fyzioterapie Věra Kadeřávková
+# Bezpečnější verze pro Vercel
 
-Plná HTML verze webu připravená pro jednoduché nasazení na Vercel nebo GitHub.
+Obsah:
+- `index.html` – hlavní stránka
+- `script.js` – samostatný JavaScript bez inline handlerů
+- `vercel.json` – bezpečnostní hlavičky pro Vercel
 
-## Obsah
-- `index.html` – kompletní web v jednom souboru
+## Co je upravené
+- odstraněný inline JavaScript
+- přidaný jednoduchý honeypot proti botům
+- základní klientská validace formuláře
+- CSP a další bezpečnostní hlavičky pro Vercel
 
 ## Nasazení
-1. Rozbal ZIP.
-2. Nahraj `index.html` do GitHub repa.
-3. Commitni změnu.
-4. Vercel automaticky provede nový deploy.
+1. Nahraj všechny 3 soubory do repa.
+2. Commitni změnu.
+3. Vercel automaticky udělá nový deploy.
+
+## Poznámka
+Formulář stále nic neposílá. Pro ostrý provoz ho napoj na bezpečné odesílání s antispam ochranou.
