@@ -1,20 +1,13 @@
-# Bezpečnější verze pro Vercel
+# Bezpečné odesílání formuláře přes Formspree
 
-Obsah:
-- `index.html` – hlavní stránka
-- `script.js` – samostatný JavaScript bez inline handlerů
-- `vercel.json` – bezpečnostní hlavičky pro Vercel
+## Co udělat
+1. Vytvořte si formulář ve Formspree.
+2. Zkopírujte své ID formuláře.
+3. V souboru `index.html` nahraďte `YOUR_FORM_ID` ve `form action`.
+4. Nahrajte `index.html` a `vercel.json` do repa.
+5. Commitněte změnu a Vercel provede deploy.
 
-## Co je upravené
-- odstraněný inline JavaScript
-- přidaný jednoduchý honeypot proti botům
-- základní klientská validace formuláře
-- CSP a další bezpečnostní hlavičky pro Vercel
-
-## Nasazení
-1. Nahraj všechny 3 soubory do repa.
-2. Commitni změnu.
-3. Vercel automaticky udělá nový deploy.
-
-## Poznámka
-Formulář stále nic neposílá. Pro ostrý provoz ho napoj na bezpečné odesílání s antispam ochranou.
+## Poznámky
+- Formulář používá čisté HTML `POST` odeslání.
+- Je přidané honeypot pole `company` proti jednoduchým botům.
+- Bez JavaScriptu je CSP přísnější a jednodušší.
