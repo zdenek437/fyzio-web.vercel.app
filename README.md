@@ -1,15 +1,17 @@
-# Verze webu s motivem fyzioterapie na pozadí
+# Luxusnější varianta webu
 
 Obsah:
-- `index.html` – hlavní stránka s fyzio motivem v pozadí
-- `dekujeme.html` – potvrzovací stránka po odeslání
-- `script.js` – validace a lepší UX formuláře
-- `vercel.json` – bezpečnostní hlavičky pro Vercel
+- index.html
+- dekujeme.html
+- script.js
+- vercel.json
+- README.md
 
-Co je nové:
-- jemné ilustrační pozadí s motivem páteře, pohybu a rehabilitace
-- zachovaný Formspree formulář
-- success page a lepší UX po odeslání
+Co je upravené:
+- luxusnější barevnost: teplá bílá, tmavý emerald, jemné zlaté akcenty
+- elegantnější skleněné karty
+- decentnější fyzio motiv v pozadí
+- zachovaný formulář, success page a UX
 
-Ještě upravte:
-- v `index.html` nahraďte `YOUR_FORM_ID` skutečným Formspree ID
+Před nasazením:
+- v index.html nahraďte YOUR_FORM_ID skutečným ID z Formspree
